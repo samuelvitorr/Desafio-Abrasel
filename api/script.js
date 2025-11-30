@@ -53,10 +53,25 @@ form.onsubmit = async (e) => {
     e.preventDefault();
     const pessoa = {
         id: editId,
-        nome: document.getElementById('nome').value,
-        cpf: document.getElementById('cpf').value,
+        nome: document.getElementById('nome').value.trim(),
+        cpf: document.getElementById('cpf').value.trim(),
         idade: parseInt(document.getElementById('idade').value)
     };
+
+    const res = await fetch('pessoas.php');
+    const pessoasAtuais = await res.json();
+
+    const nomeDuplicado = pessoasAtuais.some(p => p.nome.toLowerCase() === pessoa.nome.toLowerCase() && p.id !== editId);
+    const cpfDuplicado = pessoasAtuais.some(p => p.cpf === pessoa.cpf && p.id !== editId);
+
+    if (nomeDuplicado) {
+        alert('Já existe uma pessoa cadastrada com este nome.');
+        return;
+    }
+    if (cpfDuplicado) {
+        alert('Já existe uma pessoa cadastrada com este CPF.');
+        return;
+    }
 
     await fetch('pessoas.php', {
         method: editId ? 'PUT' : 'POST',
@@ -69,6 +84,7 @@ form.onsubmit = async (e) => {
     cancelEdit.style.display = 'none';
     fetchPessoas();
 };
+
 
 async function deletePessoa(id) {
     if (!confirm('Deseja realmente excluir?')) return;
