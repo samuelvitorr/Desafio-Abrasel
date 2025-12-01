@@ -84,11 +84,11 @@ projeto/
 
 * Exemplo de JSON para envio (POST/PUT):
 ```bash
-    {
-  "nome": "Samuel Vitor",
-  "cpf": "111.222.333-44",
-  "idade": 25
-}
+  {
+    "nome": "Samuel Vitor",
+    "cpf": "111.222.333-44",
+    "idade": 25
+  }
 ```
 
 <img src="https://github.com/AnderMendoza/AnderMendoza/raw/main/assets/line-neon.gif" width="100%">
